@@ -15,6 +15,7 @@
     "@mui/icons-material": "^7.3.4",
     "@mui/material": "^7.3.4",
     "@mui/material-nextjs": "^7.3.3",
+    "firebase": "^12.5.0",
     "formik": "^2.4.6",
     "next": "16.0.1",
     "next-auth": "^4.24.13",
