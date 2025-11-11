@@ -39,7 +39,7 @@ export const authOptions: AuthOptions = {
   ],
   // Custom pages configuration.
   // Specifies the sign-in page URL (overrides default NextAuth page).
-  pages: { signIn: "/signin" },
+  pages: { signIn: "/signin"},
   // Session configuration.
   // Uses JWT (JSON Web Token) strategy for sessions, which is stateless and secure.
   session: { strategy: "jwt" as SessionStrategy },
