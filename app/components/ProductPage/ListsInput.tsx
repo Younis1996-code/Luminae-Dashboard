@@ -42,7 +42,7 @@ const ListsInput = ({label,name} : ListsInputProps) => {
       icon:icon
     }
 
-    const newItems = [...listItems,newItem]
+    const newItems = [...listItems,newItem];
     setListItems(newItems);
     helpers.setValue(newItems)
     resetInputs();

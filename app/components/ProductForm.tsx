@@ -8,7 +8,8 @@ import SelectField from "./ui/SelectField";
 import FormField from "./ui/FormField";
 import ImagesEntry from "./ProductPage/ImagesEntry";
 import ListsInput from "./ProductPage/ListsInput";
-
+import {database} from '../utils/firebaseConfig'
+import { push, ref, set } from "firebase/database";
 const ProductSchema = Yup.object().shape({
   productName: Yup.string().required("Product name is required"),
   mainCategoryId:Yup.string().required('main category is required'),
@@ -77,7 +78,8 @@ const initialValues  = {
   shippingInsurance:0,
   descriptionText:'',
   composition:'',
-  descriptionList:[]
+  descriptionList:[],
+  careInstructions:[]
 }
 const ProductForm: React.FC = () => {
   return (
@@ -89,11 +91,24 @@ const ProductForm: React.FC = () => {
         initialValues={initialValues}
         validationSchema={ProductSchema}
         validateOnBlur
-        onSubmit={(values, { resetForm}) => {
-          console.log("Product added:", values);
-          // resetForm();
-          // alert("Product added successfully!");
-        }}      >
+        onSubmit={async(values, { resetForm}) => {
+          const valuesToBeSent ={
+            ...values,
+            categories: [values.mainCategoryId,values.subCategoryID]
+          }
+
+          const newProductId = push(ref( database , "products"));
+
+          const newProduct = {
+            ...valuesToBeSent,
+            id:newProductId.key,
+            created_at:new Date().toISOString()
+          }
+          await set(newProductId, newProduct);
+          console.log(await set(newProductId, newProduct))
+          resetForm();
+        }}
+        >
         {({ handleChange, values,errors }) => (
           <Form>
             <Stack spacing={2}>
@@ -139,7 +154,9 @@ const ProductForm: React.FC = () => {
                 id="outlined-disabled"
                 label="Categories"
                 name='categories'
-                value={[values.mainCategoryId +' '+ values.subCategoryID]}
+                value={[values.mainCategoryId ,values.subCategoryID]}
+                error={Boolean(errors.categories)}
+                helperText={errors.categories ? errors.categories : ''}
               />
               {/* image entry */}
               <ImagesEntry 
