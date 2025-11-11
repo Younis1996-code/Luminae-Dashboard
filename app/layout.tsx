@@ -28,7 +28,7 @@ import { SessionProvider } from "next-auth/react";
 
 // Import AppRouterCacheProvider from MUI's Next.js integration package.
 // This handles Emotion cache for server-side rendering (SSR) and hydration in App Router, preventing style mismatches.
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
 // Create a default MUI theme using createTheme().
 // This can be customized later with options like colors, typography, etc. Here, it's using defaults.
